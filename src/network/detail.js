@@ -9,6 +9,13 @@ export function getDetailData(iid) {
   })
 }
 
+//获取推荐信息
+export function getRecommend() {
+  return request({
+    url:'/recommend'
+  })
+}
+
 //这是创建class对象  接收Goods商品详细信息
 export class Goods{
   constructor(itemInfo,columns,service) {

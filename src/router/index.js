@@ -29,7 +29,10 @@ const Detail = () => import('views/detail/Detail')
       component:Profile
     },
     {
-      path:'/detail/:iid',
+      //第一种方法：动态路由
+      // path:'/detail/:iid',
+      //第二种
+      path:'/detail',
       component:Detail
     }
 ]

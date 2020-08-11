@@ -1,6 +1,6 @@
 <template>
     <div class="GoodsListItem" @click="itemClick">
-        <img :src="goodsItem.show.img" @load="imgLoad">
+        <img v-lazy="getShowImage" @load="imgLoad">
         <div class="GoodsListInfo">
             <p>{{goodsItem.title}}</p>
             <span class="price">{{goodsItem.price}}</span>
@@ -20,15 +20,33 @@
         }
       }
     },
+    computed:{
+      getShowImage(){
+        return this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img
+      }
+    },
     methods:{
       imgLoad(){
-        this.$bus.$emit('itemImgLoad')
+        if (this.$route.path.indexOf('/home') !== -1){
+          this.$bus.$emit('homeItemImgLoad')
+        }else if(this.$route.path.indexOf('/detail') !== -1){
+          this.$bus.$emit('detailItemImgLoad')
+        }else if (this.$route.path.indexOf('/category') !== -1){
+          this.$bus.$emit('categoryItemImgLoad')
+        }
       },
       itemClick(){
-        this.$router.push('/detail/' + this.goodsItem.iid)
-
+        //第一种方法 这是动态路由 这个需要到路由配置：id
+        // this.$router.push('/detail/' + this.goodsItem.iid)
+        //第二种使用query
+        this.$router.push({
+          path:'/detail',
+          query:{
+            iid:this.goodsItem.iid
+          }
+        })
       }
-    }
+    },
 
   }
 </script>

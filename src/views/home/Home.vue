@@ -1,7 +1,7 @@
 <template>
     <div id="home">
         <nav-bar class="home-nav">
-            <div slot="center">购物车</div>
+            <div slot="center">低配版蘑菇街</div>
         </nav-bar>
         <tab-control
                 ref="tabControl1"
@@ -59,7 +59,7 @@
         currentType:'pop',
         isShowBackTop:false,
         tabControlTop:0,
-        getoffsetTop:false,
+        // getoffsetTop:false,
         isShowTabControl:false,
         saveY:0
       }
@@ -75,7 +75,7 @@
      mounted() {
       //1.图片加载完成后的事件监听
     const refresh = this.debounce(this.$refs.scroll.scrollRefresh,50);
-    this.$bus.$on('itemImgLoad',()=>{
+    this.$bus.$on('homeItemImgLoad',()=>{
         refresh();
     });
     //2.获取tabControl的offsetTop
@@ -84,13 +84,21 @@
      },
     updated() {
       //这里可以拿到tabControl的offsetTop我就不用去轮播图子组件获取高度
-     if (!this.getoffsetTop){
-       this.tabControlTop = this.$refs.tabControl2.$el.offsetTop;
-       this.getoffsetTop = true
-     }
+
+     //  if (!this.getoffsetTop){
+      //   this.$nextTick(()=>{
+      //     this.tabControlTop = this.$refs.tabControl2.$el.offsetTop;
+      //   })
+      //   this.getoffsetTop = true
+      //
+      // }
+        this.$nextTick(()=>{
+          this.tabControlTop = this.$refs.tabControl2.$el.offsetTop;
+        })
+
     },
     activated() {
-      this.$refs.scroll.scrollBackTop(0,this.saveY,0)
+      this.$refs.scroll.scrollBackTop(0,this.saveY,50)
       this.$refs.scroll.scrollRefresh()
     },
     deactivated() {
@@ -124,7 +132,7 @@
           this.$refs.tabControl2.mindex = index;
         },
       backTopClick(){
-        this.$refs.scroll.scrollBackTop(0,500)
+        this.$refs.scroll.scrollBackTop(0,0,500)
       },
       getProXY(position){
         //这里是根据子组件传递过来的XY轴进行判断是否显示回到顶部按钮

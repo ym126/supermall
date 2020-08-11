@@ -13,12 +13,11 @@
 <script>
 
   //这里使用vant组件库的
-  import Vue from 'vue'
-  import {Swipe,SwipeItem,Lazyload} from 'vant'
+  // import Vue from 'vue'
+  // import {Swipe,SwipeItem} from 'vant'
+  // Vue.use(Swipe);
+  // Vue.use(SwipeItem);
 
-  Vue.use(Swipe);
-  Vue.use(SwipeItem);
-  Vue.use(Lazyload);
 
   export default {
     name: "HomeSwipe",
